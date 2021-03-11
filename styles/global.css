@@ -18,6 +18,7 @@ body,
 
 main {
   flex: 1 0 auto;
+  width: 100%;
 }
 
 footer {
@@ -29,8 +30,13 @@ footer {
 }
 
 a {
-  color: #fd7878;
+  color: #d32a2a;
   text-decoration: none;
+}
+
+header a,
+footer a {
+  color: #fa8a8a;
 }
 
 a:hover {
@@ -40,4 +46,19 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+input[type='checkbox'] {
+  transform: scale(1.5);
+  min-width: 30px;
+}
+
+button {
+  padding: 7px;
 }

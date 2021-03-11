@@ -1,34 +1,35 @@
-import { useRouter } from "next/router";
-import moment from "moment";
-import { getArticles, getSingleArticle } from "../../models/article";
-import Link from "next/link";
-import Image from "next/image";
-import Layout from "../../components/Layout";
+import { useRouter } from 'next/router';
+import moment from 'moment';
+import { getArticles, getSingleArticle } from '../../models/article';
+import Link from 'next/link';
+import Image from 'next/image';
+import Layout from '../../components/Layout';
 
 export default function ArticleDetailPage({
   title,
   body,
   lastUpdateDate,
-  pictureUrl
+  pictureUrl,
 }) {
   const router = useRouter();
   return (
-    <Layout pageTitle={router.isFallback ? "Loading..." : title}>
+    <Layout pageTitle={router.isFallback ? 'Loading...' : title}>
       {router.isFallback ? (
-        "Loading the article..."
+        'Loading the article...'
       ) : (
         <>
           <p>Page generated on : {lastUpdateDate}</p>
 
-          <Link href="/articles" scroll={false}>
-            <a href="/articles">Go back to the list</a>
+          <Link href='/articles' scroll={false}>
+            <a href='/articles'>Go back to the list</a>
           </Link>
           <h1>{title}</h1>
           <Image
-            alt="Picture representing the content of the article. Or not."
+            alt='Picture representing the content of the article. Or not.'
             width={600}
             height={400}
             src={pictureUrl}
+            layout='responsive'
           />
           <p>{body}</p>
         </>
@@ -42,21 +43,21 @@ export async function getStaticPaths() {
   const paths = articles.map((a) => ({ params: { id: a.id.toString() } }));
   return {
     paths,
-    fallback: true
+    fallback: true,
   };
 }
 
 export async function getStaticProps({ params }) {
   const { title, body, pictureUrl } = await getSingleArticle(params.id);
-  const currentDate = moment().format("YYYY-MM-DD - HH:mm:ss");
+  const currentDate = moment().format('YYYY-MM-DD - HH:mm:ss');
 
   return {
     props: {
       title,
       body,
       pictureUrl,
-      lastUpdateDate: currentDate
+      lastUpdateDate: currentDate,
     },
-    revalidate: 2
+    revalidate: 2,
   };
 }
